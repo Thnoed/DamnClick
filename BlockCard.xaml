@@ -1,0 +1,112 @@
+<UserControl x:Class="Clicker.BlockCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border Background="{StaticResource CardBrush}" BorderBrush="{StaticResource CardBorderBrush}"
+            BorderThickness="1" CornerRadius="10" Padding="10" Margin="0,0,0,8">
+        <StackPanel>
+            <!-- Collapsed header -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <CheckBox x:Name="EnabledBox" Grid.Column="0" Style="{StaticResource BigToggle}"
+                          VerticalAlignment="Center" Margin="0,0,10,0"
+                          Checked="Field_Changed" Unchecked="Field_Changed"/>
+
+                <StackPanel Grid.Column="1">
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="ActivationBtn" Grid.Column="0" Content="—"
+                                Style="{StaticResource KeyButton}" Margin="0,0,3,0"
+                                Click="ActivationBtn_Click" ToolTip="Activation key"/>
+                        <Button x:Name="ClickBtn" Grid.Column="1" Content="—"
+                                Style="{StaticResource KeyButton}" Margin="3,0,0,0"
+                                Click="ClickBtn_Click" ToolTip="Click key"/>
+                    </Grid>
+                    <ComboBox x:Name="ModeBox" FontSize="12"
+                              SelectionChanged="Field_Changed"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Margin="6,0,0,0">
+                    <Button x:Name="ExpandBtn" Content="⚙" Style="{StaticResource IconButton}"
+                            Click="ExpandBtn_Click" ToolTip="Settings"/>
+                    <Button x:Name="RemoveBtn" Content="🗑" Style="{StaticResource DangerIconButton}"
+                            Click="RemoveBtn_Click" ToolTip="Delete"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Expandable details -->
+            <StackPanel x:Name="DetailsPanel" Visibility="Collapsed" Margin="0,10,0,0">
+                <Border Height="1" Background="{StaticResource CardBorderBrush}" Margin="0,0,0,10"/>
+                <DockPanel>
+                    <TextBlock x:Name="HelpCps" Text="?" Foreground="{StaticResource DimBrush}" FontSize="11" Padding="6,2"
+                               VerticalAlignment="Center" DockPanel.Dock="Right" Margin="6,0,0,0"
+                               ToolTipService.InitialShowDelay="200" ToolTipService.ShowDuration="10000"/>
+                    <Label x:Name="CpsLabel" Content="CPS"/>
+                </DockPanel>
+                <DockPanel Margin="0,0,0,8">
+                    <TextBox x:Name="CpsBox" Width="56" DockPanel.Dock="Right" Margin="8,0,0,0"
+                             TextChanged="CpsBox_TextChanged"/>
+                    <Slider x:Name="CpsSlider" Minimum="1" Maximum="150" TickFrequency="1"
+                            IsSnapToTickEnabled="True" VerticalAlignment="Center"
+                            ValueChanged="CpsSlider_ValueChanged"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock x:Name="HelpLimit" Text="?" Foreground="{StaticResource DimBrush}" FontSize="11" Padding="6,2"
+                               VerticalAlignment="Center" DockPanel.Dock="Right" Margin="6,0,0,0"
+                               ToolTipService.InitialShowDelay="200" ToolTipService.ShowDuration="10000"/>
+                    <Label x:Name="LimitLabel" Content="Limit"/>
+                </DockPanel>
+                <DockPanel Margin="0,0,0,8">
+                    <CheckBox x:Name="UnlimitedBox" Content="Unlimited" VerticalAlignment="Center"
+                              DockPanel.Dock="Right" Checked="Field_Changed" Unchecked="Field_Changed"/>
+                    <TextBox x:Name="LimitBox" Margin="0,0,8,0" TextChanged="LimitBox_TextChanged"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock x:Name="HelpRandom" Text="?" Foreground="{StaticResource DimBrush}" FontSize="11" Padding="6,2"
+                               VerticalAlignment="Center" DockPanel.Dock="Right" Margin="6,0,0,0"
+                               ToolTipService.InitialShowDelay="200" ToolTipService.ShowDuration="10000"/>
+                    <Label x:Name="RandomLabel" Content="Random"/>
+                </DockPanel>
+                <DockPanel Margin="0,0,0,8">
+                    <TextBox x:Name="RandomBox" Width="56" DockPanel.Dock="Right" Margin="8,0,0,0"
+                             TextChanged="RandomBox_TextChanged"/>
+                    <Slider x:Name="RandomSlider" Minimum="0" Maximum="100" VerticalAlignment="Center"
+                            ValueChanged="RandomSlider_ValueChanged"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock x:Name="HelpDuty" Text="?" Foreground="{StaticResource DimBrush}" FontSize="11" Padding="6,2"
+                               VerticalAlignment="Center" DockPanel.Dock="Right" Margin="6,0,0,0"
+                               ToolTipService.InitialShowDelay="200" ToolTipService.ShowDuration="10000"/>
+                    <Label x:Name="DutyLabel" Content="Duty"/>
+                </DockPanel>
+                <DockPanel Margin="0,0,0,8">
+                    <TextBox x:Name="DutyBox" Width="56" DockPanel.Dock="Right" Margin="8,0,0,0"
+                             TextChanged="DutyBox_TextChanged"/>
+                    <Slider x:Name="DutySlider" Minimum="5" Maximum="95" VerticalAlignment="Center"
+                            ValueChanged="DutySlider_ValueChanged"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock x:Name="HelpDelay" Text="?" Foreground="{StaticResource DimBrush}" FontSize="11" Padding="6,2"
+                               VerticalAlignment="Center" DockPanel.Dock="Right" Margin="6,0,0,0"
+                               ToolTipService.InitialShowDelay="200" ToolTipService.ShowDuration="10000"/>
+                    <Label x:Name="DelayLabel" Content="Delay"/>
+                </DockPanel>
+                <DockPanel Margin="0,0,0,4">
+                    <TextBox x:Name="DelayBox" Width="56" DockPanel.Dock="Right" Margin="8,0,0,0"
+                             TextChanged="DelayBox_TextChanged"/>
+                    <Slider x:Name="DelaySlider" Minimum="0" Maximum="1000" TickFrequency="1"
+                            IsSnapToTickEnabled="True" VerticalAlignment="Center"
+                            ValueChanged="DelaySlider_ValueChanged"/>
+                </DockPanel>
+                <TextBlock x:Name="ClicksText" Foreground="{StaticResource DimBrush}" FontSize="11" Margin="0,6,0,0"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>
